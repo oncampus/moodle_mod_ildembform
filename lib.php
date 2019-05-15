@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot.'/mod/ildembform/locallib.php');
-require_once($CFG->dirroot.'/mod/ildembform/contact_form.php');
+require_once($CFG->dirroot . '/mod/ildembform/locallib.php');
+require_once($CFG->dirroot . '/mod/ildembform/contact_form.php');
 
 /**
  * Add ildembform instance.
@@ -34,16 +34,18 @@ require_once($CFG->dirroot.'/mod/ildembform/contact_form.php');
  * @param mod_ildembform_mod_form $mform
  * @return int new ildembform instance id
  */
-function ildembform_add_instance($data) {
+function ildembform_add_instance($data)
+{
     global $CFG, $DB;
-	
+
     $cmid = $data->coursemodule;
     $data->timemodified = time();
-	
+    $data->description = $data->description['text'];
+
     $data->id = $DB->insert_record('ildembform', $data);
 
     // we need to use context now, so we need to make sure all needed info is already in db
-    $DB->set_field('course_modules', 'instance', $data->id, array('id'=>$cmid));
+    $DB->set_field('course_modules', 'instance', $data->id, array('id' => $cmid));
 
     return $data->id;
 }
@@ -54,13 +56,15 @@ function ildembform_add_instance($data) {
  * @param object $mform
  * @return bool true
  */
-function ildembform_update_instance($data, $mform) {
+function ildembform_update_instance($data)
+{
     global $CFG, $DB;
     require_once("$CFG->libdir/resourcelib.php");
 
     $cmid = $data->coursemodule;
     $data->timemodified = time();
-    $data->id           = $data->instance;
+    $data->id = $data->instance;
+    $data->description = $data->description['text'];
 
     $DB->update_record('ildembform', $data);
 
@@ -71,11 +75,12 @@ function ildembform_update_instance($data, $mform) {
  * Delete ildembform instance.
  * @param int $id
  * @return bool true
- */ 
-function ildembform_delete_instance($id) {
+ */
+function ildembform_delete_instance($id)
+{
     global $DB;
 
-    if (!$ildembform = $DB->get_record('ildembform', array('id'=>$id))) {
+    if (!$ildembform = $DB->get_record('ildembform', array('id' => $id))) {
         return false;
     }
 
@@ -83,7 +88,7 @@ function ildembform_delete_instance($id) {
     \core_completion\api::update_completion_date_event($cm->id, 'ildembform', $id, null);
 
     // note: all context files are deleted automatically
-    $DB->delete_records('ildembform', array('id'=>$ildembform->id));
+    $DB->delete_records('ildembform', array('id' => $ildembform->id));
 
     return true;
 }
@@ -92,63 +97,66 @@ function ildembform_delete_instance($id) {
  * embedded instance of ildembform in course/view.php.
  * @param array $cm
  * @return no return set
- */ 
+ */
 
-function ildembform_cm_info_dynamic(cm_info $cm) {
-	global $CFG, $DB, $OUTPUT, $PAGE, $USER;
-		
-	$cmr = $cm->get_course_module_record();	
-	
-	$id = $cmr->course; //courseid
-	$instanceid = $cmr->instance; //instance
-	
-	$formdata = $DB->get_record('ildembform', array('id' => $instanceid));	
-	$context = context_course::instance($id);	
+function ildembform_cm_info_dynamic(cm_info $cm)
+{
+    global $CFG, $DB, $USER;
 
-	// special parameters for the ild mooc format
-	$chapter       = optional_param('chapter', '', PARAM_INT);  // the current chapter
-	$week	       = optional_param('selected_week', '', PARAM_INT);  // the current week (lesson)
-	
-	// if the params $chapter and $lesson exist, add them to the $url for the redirect
-	// (this params are only required for the ild specific mooc format)
-	if (!empty($chapter)) {
-		$chap_param = '&chapter=' . $chapter;
-	} else {
-		$chap_param = '';
-	}
+    $cmr = $cm->get_course_module_record();
 
-	if (!empty($week)) {
-		$week_param = '&selected_week=' . $week;
-	} else {
-		$week_param = '';
-	}
-	
-	// if $contentview true, the form will be embeded in the course view, 
-	// otherwise the form will be reached over the view.php of the plugin
-	$contentview = $formdata->contentview;	
-	
-	$url = $CFG->wwwroot . '/mod/ildembform/view.php?id=' . $cmr->id;	
-	
-	// if $contentview is false, only a link to the ildembform view.php is visible
-	if($contentview) {	
-	
-		$embform = new ildembform_form($url);
-		
-		// add course id and instance id to $embform		
-		$toform = array('courseid' => $id,
-						'instanceid' => $instanceid,
-						'chapter' => $chapter,
-						'selected_week' => $week,
-						);
-					
-		$embform->set_data($toform);		
-		
-		$out = '<h4>' . $formdata->name . '</h4>';
-		$out .= $formdata->description;
-		$out .= $embform->render();	
-		
-		$cm->set_content($out);
-		// $cm->set_no_view_link();
-		
-	} 
+    $id = $cmr->course; //courseid
+    $instanceid = $cmr->instance; //instance
+
+    $formdata = $DB->get_record('ildembform', array('id' => $instanceid));
+    $context = context_course::instance($id);
+
+    // special parameters for the ild mooc format
+    $chapter = optional_param('chapter', '', PARAM_INT);  // the current chapter
+    $week = optional_param('selected_week', '', PARAM_INT);  // the current week (lesson)
+
+    // if the params $chapter and $lesson exist, add them to the $url for the redirect
+    // (this params are only required for the ild specific mooc format)
+    if (!empty($chapter)) {
+        $chap_param = '&chapter=' . $chapter;
+    } else {
+        $chap_param = '';
+    }
+
+    if (!empty($week)) {
+        $week_param = '&selected_week=' . $week;
+    } else {
+        $week_param = '';
+    }
+
+    // if $contentview true, the form will be embeded in the course view,
+    // otherwise the form will be reached over the view.php of the plugin
+    $contentview = $formdata->contentview;
+
+    $url = $CFG->wwwroot . '/mod/ildembform/view.php?id=' . $cmr->id;
+
+    if ($USER->editing != 1) {
+        // add course id and instance id to $embform
+        $toform = array('courseid' => $id,
+            'instanceid' => $instanceid,
+            'chapter' => $chap_param,
+            'selected_week' => $week_param,
+        );
+    }
+
+    // if $contentview is false, only a link to the ildembform view.php is visible
+    if ($USER->editing != 1) {
+        if ($contentview) {
+            $embform = new ildembform_form($url);
+            $embform->set_data($toform);
+
+            $out = '<h4>' . $formdata->name . '</h4>';
+            $out .= $formdata->description;
+            $out .= $embform->render();
+
+            $cm->set_content($out);
+            $cm->set_no_view_link();
+        }
+    }
+
 }

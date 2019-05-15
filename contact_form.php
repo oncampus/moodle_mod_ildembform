@@ -26,8 +26,7 @@
 require_once("{$CFG->libdir}/formslib.php");
 
 class ildembform_form extends moodleform {
-	function definition() {		
-		global $CFG, $DB, $OUTPUT;
+	function definition() {
  
         $mform =& $this->_form;
 

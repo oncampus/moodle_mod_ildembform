@@ -51,7 +51,7 @@ $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
 $context = context_course::instance($cm->course);
 
 require_capability('mod/ildembform:view', $context);
-require_course_login($course, true, $cm);
+
 
 // if the params $chapter and $lesson exist, add them to the $url for the redirect
 // (this params are only required for the ild specific mooc format)
@@ -72,7 +72,6 @@ $url = new moodle_url($CFG->wwwroot . '/course/view.php?id=' . $cm->course . $ch
 $PAGE->set_url('/mod/ildembform/view.php', array('id' => $cm->id));
 $PAGE->set_title($course->shortname.': '.$ildembform->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->set_activity_record($ildembform);
 
 
 // action url
@@ -114,7 +113,7 @@ if ($fromform = $embform->get_data()) {
 				
 	$embform->set_data($toform);
 		
-	echo $OUTPUT->header();	
+	echo $OUTPUT->header();
 	echo $OUTPUT->heading(format_string($ildembform->name), 2);
 	echo html_writer::tag('p', $ildembform->description);
 	

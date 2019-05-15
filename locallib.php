@@ -29,15 +29,6 @@ require_once ($CFG->dirroot.'/course/moodleform_mod.php');
 
 class ildembform_sendmail {
 	
-	public function __construct() {
-		global $CFG;
-		
-		if (!isloggedin() && isguestuser()) {
-			print_error(get_string('loginerror', 'ildembform'));
-		}
-				
-	}
-	
 	/**
 	 * Function for sending email to 
 	 *

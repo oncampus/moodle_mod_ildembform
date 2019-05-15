@@ -18,14 +18,14 @@
 /**
  * ildembform module version information
  *
- * @package 	mod_ildembform
+ * @package mod_ildembform
  * @copyright  2018 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018091201;       			// The current module version (Date: YYYYMMDDXX)
+$plugin->version   = 2019051500;       			// The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2018050800;    			// Requires this Moodle version
 $plugin->component = 'mod_ildembform';       	// Full name of the plugin (used for diagnostics)
 $plugin->maturity  = MATURITY_RC;
