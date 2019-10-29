@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,9 +17,10 @@
 /**
  * ildembform module version information
  *
- * @package mod_ildembform
- * @copyright  2018 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_ildembform
+ * @copyright   2019 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
 $string['pluginname'] = 'Eingebettetes Kontaktformular';
@@ -48,6 +48,11 @@ $string['sendform'] = 'Mitteilung senden';
 $string['cancelform'] = 'Abbrechen';
 $string['required_field'] = 'Erforderlich';
 $string['required_fields'] = 'Pflichtfelder';
+
+$string['mailsubject'] = 'Betreff: ';
+$string['mailfromcourse'] = 'Kurs: ';
+$string['mailmessage'] = 'Mitteilung: ';
+$string['mailfrom'] = 'Absender: ';
 
 $string['senderror'] = 'Beim Versenden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
 $string['sendsuccess'] = 'Vielen Dank für Ihre Mitteilung!';

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,24 +17,33 @@
 /**
  * ildembform module version information
  *
- * @package mod_ildembform
- * @copyright  2018 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_ildembform
+ * @copyright   2019 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
-require('../../config.php');
-require_once($CFG->dirroot.'/mod/ildembform/lib.php');
-require_once($CFG->dirroot.'/mod/ildembform/locallib.php');
+require_once("../../config.php");
 
-$id      = optional_param('id', 0, PARAM_INT); // Course Module ID
-$p       = optional_param('p', 0, PARAM_INT);  // ildembform instance ID
+require_login();
 
-// special parameters for the ild mooc format
-$chapter       = optional_param('chapter', '', PARAM_INT);  // the current chapter
-$week	       = optional_param('selected_week', '', PARAM_INT);  // the current week (lesson)
+require_once($CFG->dirroot . '/mod/ildembform/lib.php');
+require_once($CFG->dirroot . '/mod/ildembform/locallib.php');
+
+// Course Module ID.
+$id = optional_param('id', 0, PARAM_INT);
+// Ildembform instance ID.
+$p = optional_param('p', 0, PARAM_INT);
+
+// Special parameters for the mooc format.
+
+// The current chapter.
+$chapter = optional_param('chapter', '', PARAM_INT);
+// The current week (lesson).
+$week = optional_param('selected_week', '', PARAM_INT);
 
 if ($p) {
-    if (!$ildembform = $DB->get_record('ildembform', array('id'=>$p))) {
+    if (!$ildembform = $DB->get_record('ildembform', array('id' => $p))) {
         print_error(get_string('invalidaccessparameter', 'ildembform'));
     }
     $cm = get_coursemodule_from_instance('ildembform', $ildembform->id, $ildembform->course, false, MUST_EXIST);
@@ -44,81 +52,81 @@ if ($p) {
     if (!$cm = get_coursemodule_from_id('ildembform', $id)) {
         print_error(get_string('invalidcoursemodule', 'ildembform'));
     }
-    $ildembform = $DB->get_record('ildembform', array('id'=>$cm->instance), '*', MUST_EXIST);
+    $ildembform = $DB->get_record('ildembform', array('id' => $cm->instance), '*', MUST_EXIST);
 }
 
-$course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $context = context_course::instance($cm->course);
 
 require_capability('mod/ildembform:view', $context);
 
 
-// if the params $chapter and $lesson exist, add them to the $url for the redirect
-// (this params are only required for the ild specific mooc format)
+// If the params $chapter and $lesson exist, add them to the $url for the redirect,
+// (this params are only required for the ild specific mooc format).
+
 if (!empty($chapter)) {
-	$chap_param = '&chapter=' . $chapter;
+    $chapparam = '&chapter=' . $chapter;
 } else {
-	$chap_param = '';
+    $chapparam = '';
 }
 
 if (!empty($week)) {
-	$week_param = '&selected_week=' . $week;
+    $weekparam = '&selected_week=' . $week;
 } else {
-	$week_param = '';
+    $weekparam = '';
 }
 
-$url = new moodle_url($CFG->wwwroot . '/course/view.php?id=' . $cm->course . $chap_param . $week_param);
+$url = new moodle_url($CFG->wwwroot . '/course/view.php?id=' . $cm->course . $chapparam . $weekparam);
 
 $PAGE->set_url('/mod/ildembform/view.php', array('id' => $cm->id));
-$PAGE->set_title($course->shortname.': '.$ildembform->name);
+$PAGE->set_title($course->shortname . ': ' . $ildembform->name);
 $PAGE->set_heading($course->fullname);
 
 
-// action url
-$actionurl = $CFG->wwwroot . '/mod/ildembform/view.php?id=' . $cm->id;	
+// Action url.
+$actionurl = $CFG->wwwroot . '/mod/ildembform/view.php?id=' . $cm->id;
 
 $embform = new ildembform_form($actionurl);
 
 if ($fromform = $embform->get_data()) {
-	
-			
-	$sendmessage = new ildembform_sendmail;
-	
-	$subject = $fromform->subject;
-	$message = $fromform->message;
-		
-	$formdata = $DB->get_record('ildembform', array('id' => $cm->instance));
-	if (!empty($formdata->emails)) {
-		$receivers = explode(', ', $formdata->emails);
-	} else {		
-		$receivers = array();
-		$teachers = get_role_users(3, $context);
-		foreach ($teachers as $tea) {
-			$receivers[] = $tea->email;
-		}
-	}
-		
-	if ($sendmessage->sendmessage($subject, $message, $cm->course, $receivers, $url)) {
-		redirect($url, get_string('sendsuccess', 'ildembform'), null, \core\output\notification::NOTIFY_SUCCESS);
-	} else {	
-		redirect($url, get_string('senderror', 'ildembform'), null, \core\output\notification::NOTIFY_ERROR);
 
-	}
-	
+    $sendmessage = new ildembform_sendmail;
+
+    $subject = $fromform->subject;
+    $message = $fromform->message;
+
+    $formdata = $DB->get_record('ildembform', array('id' => $cm->instance));
+    if (!empty($formdata->emails)) {
+        $receivers = explode(', ', $formdata->emails);
+    } else {
+        $receivers = array();
+        $teachers = get_role_users(3, $context);
+        foreach ($teachers as $tea) {
+            $receivers[] = $tea->email;
+        }
+    }
+
+    if ($sendmessage->sendmessage($subject, $message, $cm->course, $receivers, $url)) {
+        redirect($url, get_string('sendsuccess', 'ildembform'), null, \core\output\notification::NOTIFY_SUCCESS);
+    } else {
+        redirect($url, get_string('senderror', 'ildembform'), null, \core\output\notification::NOTIFY_ERROR);
+
+    }
+
 } else {
-		
-	//Set default data
-	$toform = array('courseid' => $id,
-					'instanceid' => '');
-				
-	$embform->set_data($toform);
-		
-	echo $OUTPUT->header();
-	echo $OUTPUT->heading(format_string($ildembform->name), 2);
-	echo html_writer::tag('p', $ildembform->description);
-	
-	//displays the form
-	$embform->display();	
-	
-	echo $OUTPUT->footer();
+
+    // Set default data.
+    $toform = array('courseid' => $id,
+        'instanceid' => '');
+
+    $embform->set_data($toform);
+
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading(format_string($ildembform->name), 2);
+    echo html_writer::tag('p', $ildembform->description);
+
+    // Displays the form.
+    $embform->display();
+
+    echo $OUTPUT->footer();
 }

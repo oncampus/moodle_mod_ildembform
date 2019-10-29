@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,39 +17,45 @@
 /**
  * ildembform module version information
  *
- * @package mod_ildembform
- * @copyright  2018 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_ildembform
+ * @copyright   2019 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
-$string['pluginname'] = 'Eingebettetes Kontaktformular';
-$string['modulename'] = 'Eingebettetes Kontaktformular';
-$string['modulenameplural'] = 'Eingebettete Kontaktformulare';
+$string['pluginname'] = 'Embedded contact form';
+$string['modulename'] = 'Embedded contact form';
+$string['modulenameplural'] = 'Embedded contact form';
 $string['modulename_link'] = 'mod/ildembform/view';
-$string['modulename_help'] = 'Kontaktformular für die direkte Kontaktaufnahme zum Kursleiter';
-$string['pluginadministration'] = 'Verwaltung';
+$string['modulename_help'] = 'Contact form for getting in touch with the trainer';
+$string['pluginadministration'] = 'Managing';
 
 $string['printheading'] = 'Display page name';
 $string['printheadingexplain'] = 'Display page name above content?';
 
-$string['addheading'] = 'Überschrift hinzufügen';
-$string['adddescription'] = 'Beschreibung hinzufügen';
-$string['contentview'] = 'Formular einbetten?';
-$string['contentviewhelp'] = 'Formular einbetten';
-$string['contentviewhelp_help'] = 'Das Formular wird im Inhaltsbereich eingebettet und ist ohne weiterführenden Link erreichbar.';
-$string['addemail'] = 'E-Mail-Empfänger:';
-$string['addemailhelp'] = 'E-Mail-Empfänger';
-$string['addemailhelp_help'] = 'Mehrere Empfänger bitte durch ein Komma getrennt eintragen.';
+$string['addheading'] = 'Add headlne';
+$string['adddescription'] = 'Add description';
+$string['contentview'] = 'Embed form?';
+$string['contentviewhelp'] = 'Embed form';
+$string['contentviewhelp_help'] = 'The contact form will be embedded in the content area and is accessible without additional link.';
+$string['addemail'] = 'E-mail recipient:';
+$string['addemailhelp'] = 'E-mail recipient';
+$string['addemailhelp_help'] = 'Please separate several e-mail recipients with a comma.';
 
-$string['addsubject'] = 'Betreff';
-$string['addmessage'] = 'Mitteilung';
-$string['sendform'] = 'Mitteilung senden';
-$string['cancelform'] = 'Abbrechen';
-$string['required_field'] = 'Erforderlich';
-$string['required_fields'] = 'Pflichtfelder';
+$string['addsubject'] = 'Subject';
+$string['addmessage'] = 'Message';
+$string['sendform'] = 'Send Message';
+$string['cancelform'] = 'Cancel';
+$string['required_field'] = 'Required';
+$string['required_fields'] = 'Required';
 
-$string['senderror'] = 'Beim Versenden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
-$string['sendsuccess'] = 'Vielen Dank für Ihre Mitteilung!';
+$string['mailsubject'] = 'Subject: ';
+$string['mailfromcourse'] = 'Send from course: ';
+$string['mailmessage'] = 'Message: ';
+$string['mailfrom'] = 'Sender: ';
+
+$string['senderror'] = 'There was an error while sending your message. Please try again.';
+$string['sendsuccess'] = 'Thank you for your message!';
 
 $string['privacy:metadata'] = 'This plugin doesn\'t store any personal user data.';
 $string['loginerror'] = 'You have to be logged in to use this form!';

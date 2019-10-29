@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,14 +17,14 @@
 /**
  * ildembform module version information
  *
- * @package mod_ildembform
- * @copyright  2018 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_ildembform
+ * @copyright   2019 Stefan Bomanns, ILD, Technische Hochschule Lübeck, <stefan.bomanns@th-luebeck.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019051500;       			// The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2018050800;    			// Requires this Moodle version
-$plugin->component = 'mod_ildembform';       	// Full name of the plugin (used for diagnostics)
+$plugin->version   = 2019051500;
+$plugin->requires  = 2018050800;
+$plugin->component = 'mod_ildembform';
 $plugin->maturity  = MATURITY_RC;
