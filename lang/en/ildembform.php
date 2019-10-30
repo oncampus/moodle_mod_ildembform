@@ -33,7 +33,7 @@ $string['pluginadministration'] = 'Managing';
 $string['printheading'] = 'Display page name';
 $string['printheadingexplain'] = 'Display page name above content?';
 
-$string['addheading'] = 'Add headlne';
+$string['addheading'] = 'Add headline';
 $string['adddescription'] = 'Add description';
 $string['contentview'] = 'Embed form?';
 $string['contentviewhelp'] = 'Embed form';

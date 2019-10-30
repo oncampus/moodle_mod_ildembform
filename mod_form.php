@@ -48,6 +48,7 @@ class mod_ildembform_mod_form extends moodleform_mod
 
         $mform->addElement('text', 'emails', get_string('addemail', 'ildembform'), array('size' => '64'));
         $mform->setType('emails', PARAM_RAW);
+        $mform->addRule('emails', null, 'required', null, 'client');
         $mform->addHelpButton('emails', 'addemailhelp', 'ildembform');
 
         $this->standard_coursemodule_elements();
