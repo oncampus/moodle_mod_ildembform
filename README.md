@@ -26,3 +26,7 @@ without additional link
 * Add E-mail recipient(s) - if you add more than one recipient please
 separate them with a comma
 
+## Support
+
+support@oncampus.de
+
