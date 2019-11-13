@@ -25,6 +25,7 @@ without additional link
 * Add a description
 * Add E-mail recipient(s) - if you add more than one recipient please
 separate them with a comma
+* Enable/disable anonymized user
 
 ## Support
 
