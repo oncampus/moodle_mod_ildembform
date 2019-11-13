@@ -51,6 +51,10 @@ class mod_ildembform_mod_form extends moodleform_mod
         $mform->addRule('emails', null, 'required', null, 'client');
         $mform->addHelpButton('emails', 'addemailhelp', 'ildembform');
 
+        $mform->addElement('select', 'anonymized', get_string('sendanonymous', 'ildembform'), $ynoptions);
+        $mform->setDefault('contentview', 1);
+        $mform->addHelpButton('contentview', 'contentviewhelp', 'ildembform');
+
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();

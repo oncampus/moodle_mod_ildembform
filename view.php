@@ -106,7 +106,7 @@ if ($fromform = $embform->get_data()) {
         }
     }
 
-    if ($sendmessage->sendmessage($subject, $message, $cm->course, $receivers, $url)) {
+    if ($sendmessage->sendmessage($subject, $message, $cm->course, $receivers, $url, $formdata->anonymized)) {
         redirect($url, get_string('sendsuccess', 'ildembform'), null, \core\output\notification::NOTIFY_SUCCESS);
     } else {
         redirect($url, get_string('senderror', 'ildembform'), null, \core\output\notification::NOTIFY_ERROR);
@@ -120,6 +120,7 @@ if ($fromform = $embform->get_data()) {
         'instanceid' => '');
 
     $embform->set_data($toform);
+
 
     echo $OUTPUT->header();
     echo $OUTPUT->heading(format_string($ildembform->name), 2);

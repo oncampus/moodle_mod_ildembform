@@ -40,6 +40,11 @@ $string['contentviewhelp_help'] = 'The contact form will be embedded in the cont
 $string['addemail'] = 'E-mail recipient:';
 $string['addemailhelp'] = 'E-mail recipient';
 $string['addemailhelp_help'] = 'Please separate several e-mail recipients with a comma.';
+$string['sendanonymous'] = ' Anonymize sender:';
+$string['sendanonymous_help'] = 'E-Mails will be send anonymized. The sender can\'t be tracked.';
+
+$string['anonymized_user_firstname'] = 'Anonymized';
+$string['anonymized_user_lastname'] = 'User';
 
 $string['addsubject'] = 'Subject';
 $string['addmessage'] = 'Message';

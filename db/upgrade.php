@@ -36,6 +36,7 @@ if ($oldversion < XXXXXXXXXX) {
     $table->add_field('name', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
     $table->add_field('description', XMLDB_TYPE_TEXT, null, null, null, null, null);
     $table->add_field('emails', XMLDB_TYPE_TEXT, null, null, null, null, null);
+    $table->add_field('anonymized', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
     $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
 
     // Adding keys to table ildembform.
@@ -52,3 +53,4 @@ if ($oldversion < XXXXXXXXXX) {
     // Ildembform savepoint reached.
     upgrade_mod_savepoint(true, XXXXXXXXXX, 'ildembform');
 }
+

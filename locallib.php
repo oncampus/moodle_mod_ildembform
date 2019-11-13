@@ -42,13 +42,23 @@ class ildembform_sendmail
      * @return bool Returning status indicating success or failure
      */
 
-    public function sendmessage($subject, $message, $cid, $receivers, $url) {
+    public function sendmessage($subject, $message, $cid, $receivers, $url, $anonymized) {
         global $USER, $DB;
 
         $fromfirstname = trim($USER->firstname);
         $fromlastname = trim($USER->lastname);
-        $frommail = trim($USER->email);
-        $fromusername = trim($USER->username);
+
+        if ($anonymized) {
+            $fromfirstname = get_string('anonymized_user_firstname', 'ildembform');
+            $fromlastname = get_string('anonymized_user_lastname', 'ildembform');
+            $frommail = $CFG->noreplyaddress;
+            $fromusername = $PAGE->fullname;
+        } else {
+            $fromfirstname = trim($USER->firstname);
+            $fromlastname = trim($USER->lastname);
+            $frommail = trim($USER->email);
+            $fromusername = trim($USER->username);
+        }
 
         $course = $DB->get_record('course', array('id' => $cid), '*', MUST_EXIST);
 

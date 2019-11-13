@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019051500;
+$plugin->version   = 2019111300;
 $plugin->requires  = 2018050800;
 $plugin->component = 'mod_ildembform';
 $plugin->maturity  = MATURITY_RC;

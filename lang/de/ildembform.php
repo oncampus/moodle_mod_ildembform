@@ -40,6 +40,11 @@ $string['contentviewhelp_help'] = 'Das Formular wird im Inhaltsbereich eingebett
 $string['addemail'] = 'E-Mail-Empfänger:';
 $string['addemailhelp'] = 'E-Mail-Empfänger';
 $string['addemailhelp_help'] = 'Mehrere Empfänger bitte durch ein Komma getrennt eintragen.';
+$string['sendanonymous'] = 'Absender anonymisieren:';
+$string['sendanonymous_help'] = 'E-Mails werden anonymisiert versendet. Es kann nicht nachverfolgt werden, wer die Nachricht verschickt hat.';
+
+$string['anonymized_user_firstname'] = 'Anonymisierte/r';
+$string['anonymized_user_lastname'] = 'Anwender/in';
 
 $string['addsubject'] = 'Betreff';
 $string['addmessage'] = 'Mitteilung';
